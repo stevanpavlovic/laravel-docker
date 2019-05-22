@@ -21,6 +21,8 @@ services:
     environment:
       DB_PORT: 3306
       DB_HOST: database
+    links:
+      - redis:redis
 
   web:
     build:
@@ -59,6 +61,11 @@ services:
     extra_hosts:
       ${COMPOSE_PROJECT_NAME}.127.0.0.1.xip.io: 127.0.0.1
       ${COMPOSE_PROJECT_NAME}.127.0.0.1.nip.io: 127.0.0.1
+
+  redis:
+    build:
+      context: ./
+      dockerfile: redis.Dockerfile
 
 volumes:
   dbdata:
