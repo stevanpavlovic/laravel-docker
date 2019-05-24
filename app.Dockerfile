@@ -5,6 +5,7 @@ RUN apt-get install -y libmcrypt-dev
 RUN apt-get install -y mysql-client
 RUN apt-get install -y libmagickwand-dev
 RUN apt-get install -y libmagickcore-dev
+RUN apt-get install -y unzip zip libzip-dev
 RUN pecl install imagick
 RUN docker-php-ext-enable imagick
 RUN docker-php-ext-install mcrypt pdo_mysql
@@ -13,4 +14,7 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN apt-get install -y git
 RUN apt-get update && apt-get install -y zlib1g-dev
 RUN apt-get install -y ntp
+RUN docker-php-ext-configure zip --with-libzip
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install opcache
+COPY ./php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
